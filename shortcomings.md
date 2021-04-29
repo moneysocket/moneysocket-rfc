@@ -126,6 +126,15 @@ Right now, the error messages on `NOTIFY_ERROR` is just a free-form string. Howe
 
 However, allowing free-form strings for things that don't fall under the 'official' set of errors is still necessary.
 
+#### M10 - Fee Quotation Call
+
+Prior to approving a transaction a user might want a quote to find out how expensive it will be to send the transaction in addition to the listed price.
+
+This would include routing fees, custodian fees, and perhaps other accounting things such as "reserved for sales tax"-type categories that the account might automatically set aside.
+
+`REQUEST_FEE_QUOTE` call coud be added, but responding to it might need some design to account for fees occuring at multiple layers of moneysocket connections.
+
+
 # Small-ish issues
 
 #### S1 - Provider/Consumer Transact Layer is poorly named
