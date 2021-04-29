@@ -13,15 +13,15 @@ This is also an effort to bootstrap and sustain an open and transparent process 
 Brain Dumps
 ------------
 
--[Shortcomings](shortcomings.md) - known shortcomings of the pre-specification library implementations.
+* [Shortcomings](shortcomings.md) - known shortcomings of the pre-specification library implementations.
 
 
 Software Model
 ------------
 
--beacon/relay behavior
--stack/layer/nexus model
--Code API description
+* beacon/relay behavior
+* stack/layer/nexus model
+* Code API description
 
 
 Basis Of Moneysocket (BOMS)
@@ -31,21 +31,21 @@ This borrows structure from [Basis of Lightning Technology](https://github.com/l
 
 These articles will capture individual aspects of the techonology in implementable detail.
 
-[BOMS #0](00-introduction.md) - introduction
-[BOMS #1](01-versioning.md) - version numbering scheme and intention
-[BOMS #2](02-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
-[BOMS #3](03-beacons.md) - beacon encoding format (kinda like bolt11)
-[BOMS #4](04-wad.md) - Provider Info data & Wad data
-[BOMS #5](05-messages.md) -request/notification message encodings
--Websocket Layer
--Rendezvous Layer
--Relay Layer
--Consumer Layer
--Provider Layer
--Consumer API Layer
--Provider API Layer
--Ephemeral Layer
--Auth Layer
+* [BOMS #0](00-introduction.md) - introduction
+* [BOMS #1](01-versioning.md) - version numbering scheme and intention
+* [BOMS #2](02-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
+* [BOMS #3](03-beacons.md) - beacon encoding format (kinda like bolt11)
+* [BOMS #4](04-wad.md) - Provider Info data & Wad data
+* [BOMS #5](05-messages.md) -request/notification message encodings
+* Websocket Layer
+* Rendezvous Layer
+* Ephemeral Layer
+* Auth Layer
+* Consumer Layer
+* Provider Layer
+* Consumer API Layer
+* Provider API Layer
+* Relay Layer
 
 
 
