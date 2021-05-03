@@ -21,6 +21,7 @@ Software Model
 
 * beacon/relay behavior
 * stack/layer/nexus model
+* transport layers (outgoing websocket, incoming websocket)
 * Code API description
 
 
@@ -32,11 +33,10 @@ This borrows structure from [Basis of Lightning Technology](https://github.com/l
 These articles will capture individual aspects of the techonology in implementable detail.
 
 * [BOMS #0](00-introduction.md) - introduction
-* [BOMS #1](01-versioning.md) - version numbering scheme and intention
-* [BOMS #2](02-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
-* [BOMS #3](03-beacons.md) - beacon encoding format (kinda like bolt11)
-* [BOMS #4](04-wad.md) - Provider Info data & Wad data
-* [BOMS #5](05-messages.md) -request/notification message encodings
+* [BOMS #1](02-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
+* [BOMS #2](02-beacons.md) - beacon encoding format (kinda like bolt11)
+* [BOMS #3](03-wad.md) - Provider Info data & Wad data
+* [BOMS #4](04-messages.md) -request/notification message encodings
 * Websocket Layer
 * Rendezvous Layer
 * Ephemeral Layer
