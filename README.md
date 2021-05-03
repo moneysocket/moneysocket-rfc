@@ -21,6 +21,7 @@ Software Model
 
 * beacon/relay behavior
 * stack/layer/nexus model
+* transport layers (outgoing websocket, incoming websocket)
 * Code API description
 
 

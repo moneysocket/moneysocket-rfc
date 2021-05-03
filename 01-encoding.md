@@ -41,8 +41,7 @@ To include an object in a message:
 
 ## Convenience Types
 
-
 #### ECDSA Signature
-#### Shnorr Signature
+#### Schnorr Signature
 #### ECDSA Signed Message
-#### Scnhorr Signed Message
+#### Schnorr Signed Message

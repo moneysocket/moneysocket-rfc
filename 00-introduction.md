@@ -55,9 +55,13 @@ It is the goal to eventually include all useful, well-considered, and well-desig
 
 ## Glossary and Terminology Guide
 
+#### Application
+
 #### Consumer
 
 #### Provider
+
+#### Bidirectional
 
 #### Stack
 
