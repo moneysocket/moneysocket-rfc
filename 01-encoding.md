@@ -27,16 +27,14 @@ Public/Private key cryptography operations are performed on curve secp256k1, whi
 
 The signing of messages with Public/Private key pairs adheres to [BIP 0340](https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki)
 
+## Other standards
 
-## Object Encoding
+### JSON Object Encoding
 
-Higher-level objects are encoded in the flexible, language-independent JSON format.
+When specifying objects meant to be held, manipulated and transmitted by an implementation, the language-independent terminology of JSON is used. When these objects are to be encoded into messages, [standard JSON](https://json.org) is used.
 
-To include an object in a message:
-    - MUST be serialized into a JSON string
-    - MUST be encoded into a UTF-8-encoded byte stream
-    - MUST be wrapped in a TLV with the encoded object as the value
-    - SHOULD reasonable choose a `type` value to conform to 'SHOULD's and `SHOULD NOT`s for [TLVs](https://github.com/lightningnetwork/lightning-rfc/blob/master/01-messaging.md#type-length-value-format)
+### UTF-8
+When encoding JSON and other text into a byte stream, standard [UTF-8](https://www.utf8.com/) encoding used.
 
 
 ## Convenience Types
@@ -45,3 +43,5 @@ To include an object in a message:
 #### Schnorr Signature
 #### ECDSA Signed Message
 #### Schnorr Signed Message
+
+#### AES Encrypted Message
