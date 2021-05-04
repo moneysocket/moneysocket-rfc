@@ -9,7 +9,7 @@ The application that generates the beacon is referred to as the generator. The g
 
 ## Bech32 encoding
 
-Beacon strings are encoded in bech32 format as specified by [BIP #0174](https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki)
+Beacon strings are encoded in Bech32 format as specified by [BIP #0174](https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki)
 
 ### Human Readable Prefix
 
@@ -19,7 +19,7 @@ Beacon strings are encoded in bech32 format as specified by [BIP #0174](https://
 
 ### Data Part
 
-Data part is encoded as a a string of bytes interpreted as a sequence of TLVs
+Data part is encoded as a string of bytes interpreted as a sequence of TLVs
 
 - MUST include a Generator Version TLV
 - SHOULD include a Role Hint TLV
@@ -45,10 +45,11 @@ Specifies the version of application which generated this beacon.
 #### Role Hint TLV
 
 Specifies a byte-sized enumeration value set by the generating application to indicate the role of the sought counterpart.
-    - `PROVIDER_GENERATOR_SEEKING_CONSUMER`: `hint` = `0x00`
-    - `CONSUMER_GENERATOR_SEEKING_PROVIDER`: `hint` = `0x01`
-    - `BIDIRECTIONAL_GENERATOR`: `hint` = `0x02`
-    - All other values are reserved.
+
+- `PROVIDER_GENERATOR_SEEKING_CONSUMER`: `hint` = `0x00`
+- `CONSUMER_GENERATOR_SEEKING_PROVIDER`: `hint` = `0x01`
+- `BIDIRECTIONAL_GENERATOR`: `hint` = `0x02`
+- All other values are reserved.
 
 1. type: 2 (`role_hint`)
 2. data:
@@ -59,7 +60,7 @@ Specifies a byte-sized enumeration value set by the generating application to in
 
 A secret value that to be known to both applications seeking connection, passed via this beacon.
 
-- MUST be a cryptgraphic-strength, randomly-generated 128-bit value
+- MUST be a cryptographic-strength, randomly-generated 128-bit value
 - MUST NOT re-use this value for other beacons
 - MUST interpret `hi` and `lo` 64-bit value as a big endian 128-bit value with `hi` taken as as higher-order bytes and `lo` taken as lower-order bytes.
 
@@ -84,6 +85,8 @@ Specifies a list of locations for rendezvous for the generator and sought counte
 
 ##### Websocket Location TLV
 
+Specifies a location for a WebSocket connection rendezvous.
+
 - MAY include a Generator Preference TLV to rank the Generator's preference for this location compared to others in the Location List TLV. If it is not included, it will imply a preference ranking of 255.
 - MUST include a Hostname TLV to specify the DNS hostname of the WebSocket rendezvous location.
 - MAY include a TLS TLV to specify whether the connection should use TLS. If it is not included, it will imply a setting of `true` to indicate TLS is to be used.
@@ -97,7 +100,7 @@ Specifies a list of locations for rendezvous for the generator and sought counte
 
 ###### Generator Preference TLV
 
-An optional value chosen by the generator that indicates it's relative preference for conection locations among the location list for the sought counterpart to rendezvous via. A value of `0` indicates highest preference and a value of `255` indicates lowest preference.
+An optional value chosen by the generator that indicates it's relative preference for connection locations among the location list for the sought counterpart to rendezvous via. A value of `0` indicates highest preference and a value of `255` indicates lowest preference.
 
 1. type: 0 (`generator_preference`)
 2. data:
@@ -114,9 +117,10 @@ A DNS hostname for where the WebSocket connection request are to be seent.
 ###### TLS TLV
 
 An enum value that specifies whether TLS should be used for the WebSocket connection.
-    - `TLS_FALSE`: `tls` = `0x00`
-    - `TLS_TRUE`: `tls` = `0x01`
-    - All other values are reserved.
+
+- `TLS_FALSE`: `tls` = `0x00`
+- `TLS_TRUE`: `tls` = `0x01`
+- All other values are reserved.
 
 1. type: 2 (`tls`)
 2. data:
@@ -141,7 +145,6 @@ A pathname for the WebSocket url connection.
     * [`len*byte`: `path`]
 
 
-
 ## Beacons passed via QR Codes
 
 ### QR Code Encoding
@@ -150,9 +153,9 @@ A pathname for the WebSocket url connection.
      - (note, ASCII Space, aka `0x20`, is not allowed in bech32 strings, though considerd alphanumeric for QR codes)
     - Convert all alphabetic characters to uppercase
     - if a character is non-alphanumeric:
-        - if a character is '$`, `%`, `*`, `+`, `-`, `.`, `/`, and `:`:
+        - if a character is `$`, `%`, `*`, `+`, `-`, `.`, `/`, and `:`:
             - encode to QR as-is
-        - if a character is not '$`, `%`, `*`, `+`, `-`, `.`, `/`, and `:`:
+        - if a character is not `$`, `%`, `*`, `+`, `-`, `.`, `/`, and `:`:
             - encode to QR as `.`
 
 ### QR Code Decoding
