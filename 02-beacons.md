@@ -26,7 +26,7 @@ Data part is encoded as a string of bytes interpreted as a sequence of TLVs
 - MUST include a Shared Seed TLV
 - MUST include a Location List TLV
 - MAY include additional TLVs to pass non-standard data
-    - MUST pick custom record `type` value following rules in [BOLT #01](https://github.com/lightningnetwork/lightning-rfc/blob/master/01-messaging.md#type-length-value-format).
+    - SHOULD pick custom record `type` value following rules in [BOLT #01](https://github.com/lightningnetwork/lightning-rfc/blob/master/01-messaging.md#type-length-value-format).
 
 #### Generator Version TLV
 
@@ -36,7 +36,7 @@ Specifies the version of application which generated this beacon.
 - SHOULD set `minor` version of the generator application software release, otherwise set 0.
 - SHOULD set `patch` version of the generator application software release, otherwise set 0.
 
-1. type: 1 (`version`)
+1. type: 0 (`version`)
 2. data:
     * [`u8`: `major`]
     * [`u8`: `minor`]
@@ -51,7 +51,7 @@ Specifies a byte-sized enumeration value set by the generating application to in
 - `BIDIRECTIONAL_GENERATOR`: `hint` = `0x02`
 - All other values are reserved.
 
-1. type: 2 (`role_hint`)
+1. type: 1 (`role_hint`)
 2. data:
     * [`u8`: `hint`]
 
@@ -64,7 +64,7 @@ A secret value that to be known to both applications seeking connection, passed 
 - MUST NOT re-use this value for other beacons
 - MUST interpret `hi` and `lo` 64-bit value as a big endian 128-bit value with `hi` taken as as higher-order bytes and `lo` taken as lower-order bytes.
 
-1. type: 3 (`shared_seed`)
+1. type: 2 (`shared_seed`)
 2. data:
     * [`u64`: `hi`]
     * [`u64`: `lo`]
@@ -78,7 +78,7 @@ Specifies a list of locations for rendezvous for the generator and sought counte
 - MAY have more than one Location TLV type
 - MAY have more than one Location TLV of the same type
 
-1. type: 4 (`shared_seed`)
+1. type: 3 (`shared_seed`)
 2. data:
     * [`tlv_stream`: `location_tlvs`]
 
