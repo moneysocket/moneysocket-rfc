@@ -112,17 +112,33 @@ Language object discussed here as it is to be serialized into JSON. The specific
 
 - MUST include a name/value pair `"timestamp"` with a value of Number type.
     - MUST set `"timestamp"` value to the UNIX timestamp recorded at the time the message has been created by the sender.
-    - MUST include a name/value pair `"version"` with a value of Object type
-        - MUST have a length of 3, with the keys being `"major"` `"minor"` and `"patch"`.
-        - MUST have a Number type for each of the 3 values
-        - MUST set the '"major"` value to the `major` version of the Moneysocket protocol of the sender application
-        - SHOULD set the '"minor"' value to the `minor` version of the sender application software release, otherwise set 0.
-        - SHOULD set the `"patch"` to the `patch` version of the sender application software release, otherwise set 0.
+
+- MUST include a name/value pair `"version"` with a value of Object type
+    - MUST have a length of 3, with the keys being `"major"` `"minor"` and `"patch"`.
+    - MUST have a Number type for each of the 3 values
+    - MUST set the '"major"` value to the `major` version of the Moneysocket protocol of the sender application
+    - SHOULD set the '"minor"' value to the `minor` version of the sender application software release, otherwise set 0.
+    - SHOULD set the `"patch"` to the `patch` version of the sender application software release, otherwise set 0.
 
     - MUST have a name/value pair `message_type` with a value of String type
         - MUST be value of either `"REQUEST"` or `"NOTIFICATION"`
     - MUST have a name/value pair `message_subtype` with a value of String type
         - MUST be value of the string representation of the enum value given in the Message Type TLV.
-    - MAY have additional name/value pairs in the JSON as defined by the specific message and specific layer of the implementation.
-    - MAY have additional non-specification name/value pairs in the JSON
-        - MUST use distinct names to not conflict with name/value pairs used by the message subtype.
+
+- MUST have a name/value pair `features` with a value of Array type
+    - MAY be an empty Array
+    - MAY include String values in the array to describe non-specification features that the sender application supports
+        - SHOULD select a unique, descriptive string for the feature
+        - SHOULD select a string that reasonably short
+        - SHOULD NOT include feature data encoded in the string
+        - SHOULD include feature data, if applicable, in the `feature_data` data structure instead
+
+- MUST have a name/value pair `feature_data` with a value of Object type
+    - MAY be an empty Object
+    - MAY include name/value pairs in the Object with arbirary value as determined by the non-specification feature
+        - MUST set `name` corresponding to the String value in the `features` array.
+        - SHOULD NOT be an excessive amount of data that taxes the computational resources of applications and message parsers.
+
+- MAY have additional name/value pairs in the JSON as defined by the specific message and specific layer of the implementation.
+- MAY have additional non-specification name/value pairs in the JSON
+    - MUST use distinct names to not conflict with name/value pairs used by the message subtype.
