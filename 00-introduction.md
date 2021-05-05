@@ -28,16 +28,18 @@ The protocol reserves the `Major` version number of software to specify the revi
 
 This protocol version number is expected to be revised extremely infrequently (perhaps never). A pre-existing example of how this is intended to be used is the difference between Python2 and Python3, where there's a need for major breaking changes, and afford the code the option of staying with the previous iteration.
 
-### Version 0 - pre-specification
+### Version 0 - Pre-specification
 
 At the time of this writing, reference implementations have been created to explore this problem and inform this specification. It has used `0` as its major protocol version. This was never intended to be used in production use cases and version 0 will be retired after this specification and Version 1 code is released.
 
 #### Version 1 - First post-specification release
 
+This is the version of this specification expected to be accompanied by the first stable release of reference implementation libraries.
 
 #### Version 2+ - Reserved for major revisions in the future
 
-If there is a need identified for a fundamental structural change to this specification, the versioning will proceed by incrementing this number
+If there is a need identified for a fundamental structural change to this specification, the versioning will proceed by incrementing this number.
+
 
 ## Software Release Versioning
 
