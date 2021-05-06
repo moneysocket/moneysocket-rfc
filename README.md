@@ -35,7 +35,7 @@ These articles will capture individual aspects of the techonology in implementab
 * [BOM #0](00-introduction.md) - introduction
 * [BOM #1](02-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
 * [BOM #2](02-beacons.md) - beacon encoding format (kinda like bolt11)
-* [BOM #3](03-wad.md) - Provider Info data & Wad data
+* [BOM #3](03-provider-info.md) - Provider Info data & Wad data
 * [BOM #4](04-messages.md) -request/notification message encodings
 * Websocket Layer
 * Rendezvous Layer
