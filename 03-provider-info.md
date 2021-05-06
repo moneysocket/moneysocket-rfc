@@ -1,4 +1,4 @@
-# BOMS #3: Provider Info
+# BOM #3: Provider Info
 
 The Provider Info object describes the menu of API facilities a Provider application can provide to the Consumer application.
 

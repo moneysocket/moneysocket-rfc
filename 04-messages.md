@@ -1,4 +1,4 @@
-# BOMS #4: Message Encoding
+# BOM #4: Message Encoding
 
 Messages for the wire are encoded in binary as a TLV stream, however the major part of the content is encoded as a JSON object TLV.
 

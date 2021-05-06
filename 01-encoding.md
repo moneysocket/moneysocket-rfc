@@ -1,4 +1,4 @@
-# BOMS #1: Encoding Primitives
+# BOM #1: Encoding Primitives
 
 ## Primitives from BOLT
 
