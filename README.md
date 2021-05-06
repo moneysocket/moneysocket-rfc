@@ -47,6 +47,14 @@ These articles will capture individual aspects of the techonology in implementab
 * Provider API Layer
 * Relay Layer
 
+Moneysocket Improvement Proposals (MIPs)
+-----
+
+This is a space for BIP-like feature and extension proposals to be proposed, discussed, refined and implemented in standardized ways without necessarily getting includsion in the Basis of Moneysocket documentation.
+
+* [MIP #0001](mip-0001.md) - Avatar Image for Public Key
+* TBD
+* TBD
 
 
 Project Links
