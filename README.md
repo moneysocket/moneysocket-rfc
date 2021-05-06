@@ -25,18 +25,18 @@ Software Model
 * Code API description
 
 
-Basis Of Moneysocket (BOMS)
+Basis Of Moneysocket (BOM)
 -----
 
 This borrows structure from [Basis of Lightning Technology](https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md) (BOLT) specification.
 
 These articles will capture individual aspects of the techonology in implementable detail.
 
-* [BOMS #0](00-introduction.md) - introduction
-* [BOMS #1](02-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
-* [BOMS #2](02-beacons.md) - beacon encoding format (kinda like bolt11)
-* [BOMS #3](03-wad.md) - Provider Info data & Wad data
-* [BOMS #4](04-messages.md) -request/notification message encodings
+* [BOM #0](00-introduction.md) - introduction
+* [BOM #1](02-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
+* [BOM #2](02-beacons.md) - beacon encoding format (kinda like bolt11)
+* [BOM #3](03-wad.md) - Provider Info data & Wad data
+* [BOM #4](04-messages.md) -request/notification message encodings
 * Websocket Layer
 * Rendezvous Layer
 * Ephemeral Layer
@@ -47,6 +47,14 @@ These articles will capture individual aspects of the techonology in implementab
 * Provider API Layer
 * Relay Layer
 
+Moneysocket Improvement Proposals (MIPs)
+-----
+
+This is a space for BIP-like feature and extension proposals to be proposed, discussed, refined and implemented in standardized ways without necessarily getting includsion in the Basis of Moneysocket documentation.
+
+* [MIP #0001](mip-0001.md) - Avatar Image for Public Key
+* TBD
+* TBD
 
 
 Project Links

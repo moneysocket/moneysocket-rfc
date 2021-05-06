@@ -1,11 +1,11 @@
-# BOMS #0: Introduction and Index
+# BOM #0: Introduction and Index
 
-These Basis of MoneySocket (BOMS) documents describe a protocol for connecting applications for the purposes of coordinating the transfer of satoshis for services and/or goods delivered by one or more application in return.
+These Basis of Moneysocket (BOM) documents describe a protocol for connecting applications for the purposes of coordinating the transfer of satoshis for services and/or goods delivered by one or more application in return.
 
-1. [BOMS #1](01-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
-2. [BOMS #2](02-beacons.md) - beacon encoding format (kinda like bolt11)
-3. [BOMS #3](03-provider-info.md) - Provider Info data & Wad data
-4. [BOMS #4](04-messages.md) - request/notification message encodings
+1. [BOM #1](01-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
+2. [BOM #2](02-beacons.md) - beacon encoding format (kinda like bolt11)
+3. [BOM #3](03-provider-info.md) - Provider Info data & Wad data
+4. [BOM #4](04-messages.md) - request/notification message encodings
 5. more...
 
 
@@ -64,6 +64,10 @@ It is the goal to eventually include all useful, well-considered, and well-desig
 #### Provider
 
 #### Bidirectional
+
+#### Account
+
+#### Balance
 
 #### Stack
 

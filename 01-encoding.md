@@ -1,4 +1,4 @@
-# BOMS #1: Encoding Primitives
+# BOM #1: Encoding Primitives
 
 ## Primitives from BOLT
 
@@ -35,6 +35,9 @@ When specifying objects meant to be held, manipulated and transmitted by an impl
 
 ### UTF-8
 When encoding JSON and other text into a byte stream, standard [UTF-8](https://www.utf8.com/) encoding used.
+
+### UUIDv4
+The protocol makes us of securely randomly-generated Universal Unique Identifiers. The standard string format of [Version 4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)) is exclusively used for this purpose.
 
 
 ## Convenience Types
