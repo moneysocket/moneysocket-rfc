@@ -33,7 +33,7 @@ This borrows structure from [Basis of Lightning Technology](https://github.com/l
 These articles will capture individual aspects of the techonology in implementable detail.
 
 * [BOM #0](00-introduction.md) - introduction
-* [BOM #1](02-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
+* [BOM #1](01-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
 * [BOM #2](02-beacons.md) - beacon encoding format (kinda like bolt11)
 * [BOM #3](03-provider-info.md) - Provider Info data & Wad data
 * [BOM #4](04-messages.md) -request/notification message encodings
