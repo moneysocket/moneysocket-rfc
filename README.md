@@ -14,10 +14,10 @@ This is also an effort to bootstrap and sustain an open and transparent process 
 Software Model
 ------------
 
-* [accounts](software-model/accounts.md)
-* consumer/provider
-* composibility
-* [stack/layer/nexus model](software-model/stack-layer-nexus.md)
+* [Consumers and Providers](software-model/consumers-providers.md)
+* [Accounts](software-model/accounts.md)
+* [Composibility](software-model/composibility.md)
+* [Stack/layer/nexus model](software-model/stack-layer-nexus.md)
 * beacon/relay behavior
 * transport layers (outgoing websocket, incoming websocket)
 * Code API description
@@ -30,11 +30,11 @@ This borrows structure from [Basis of Lightning Technology](https://github.com/l
 
 These articles will capture individual aspects of the techonology in implementable detail.
 
-* [BOM #0](00-introduction.md) - introduction
-* [BOM #1](01-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
-* [BOM #2](02-beacons.md) - beacon encoding format (kinda like bolt11)
+* [BOM #0](00-introduction.md) - Introduction
+* [BOM #1](01-encoding.md) - Encoding format primitives (kinda like bolt1 & bolt 4)
+* [BOM #2](02-beacons.md) - Beacon encoding format (kinda like bolt11)
 * [BOM #3](03-provider-info.md) - Provider Info data & Wad data
-* [BOM #4](04-messages.md) -request/notification message encodings
+* [BOM #4](04-messages.md) - Request/notification message encodings
 * Websocket Layer
 * Rendezvous Layer
 * Ephemeral Layer
@@ -57,7 +57,7 @@ This is a space for BIP-like feature and extension proposals to be proposed, dis
 Appendices
 ------------
 
-* [Shortcomings](appendix/shortcomings.md) - known shortcomings of the pre-specification library implementations.
+* [Shortcomings](appendix/shortcomings.md) - Known shortcomings of the pre-specification library implementations.
 * [Embedded Relay](appendix/embedded-relay.md) - Suggestion on how to implement a listening Moneysocket servers
 
 
