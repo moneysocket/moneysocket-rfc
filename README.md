@@ -10,17 +10,15 @@ The exact shape and size of this deliverable is TBD, however inspiration is take
 
 This is also an effort to bootstrap and sustain an open and transparent process for all stakeholders for the long term. If you have any thoughts, opinions, questions, please drop in our [Telegram Group](https://t.me/moneysocket) or file issues or whatever you feel comfortable with.
 
-Brain Dumps
-------------
-
-* [Shortcomings](shortcomings.md) - known shortcomings of the pre-specification library implementations.
-
 
 Software Model
 ------------
 
+* [accounts](software-model/accounts.md)
+* consumer/provider
+* composibility
+* [stack/layer/nexus model](software-model/stack-layer-nexus.md)
 * beacon/relay behavior
-* stack/layer/nexus model
 * transport layers (outgoing websocket, incoming websocket)
 * Code API description
 
@@ -52,9 +50,15 @@ Moneysocket Improvement Proposals (MIPs)
 
 This is a space for BIP-like feature and extension proposals to be proposed, discussed, refined and implemented in standardized ways without necessarily getting includsion in the Basis of Moneysocket documentation.
 
-* [MIP #0001](mip-0001.md) - Avatar Image for Public Key
+* [MIP #0001](mips/mip-0001-avatar-image.md) - Avatar Image for Public Key
 * TBD
 * TBD
+
+Appendices
+------------
+
+* [Shortcomings](appendix/shortcomings.md) - known shortcomings of the pre-specification library implementations.
+* [Embedded Relay](appendix/embedded-relay.md) - Suggestion on how to implement a listening Moneysocket servers
 
 
 Project Links
