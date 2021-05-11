@@ -139,6 +139,16 @@ Language object discussed here as it is to be serialized into JSON. The specific
         - MUST set `name` corresponding to the String value in the `features` array.
         - SHOULD NOT be an excessive amount of data that taxes the computational resources of applications and message parsers.
 
+- If the `message_type` is `REQUEST`:
+    - MUST have a name/value pair `request_uuid` with a value of String type
+    - MUST be a string-formatted UUIDv4 that is securely generated for this message.
+
+- If the `message_type` is `NOTIFICATION`:
+    - MUST have a name/value pair `request_reference_uuid` with a value of String type
+    - MAY be set to `null`
+    - if this notification is in reference to a specific `REQUEST` message:
+        - MUST be set to the `request_uuid` of the request
+
 - MAY have additional name/value pairs in the JSON as defined by the specific message and specific layer of the implementation.
 - MAY have additional non-specification name/value pairs in the JSON
     - MUST use distinct names to not conflict with name/value pairs used by the message subtype.
