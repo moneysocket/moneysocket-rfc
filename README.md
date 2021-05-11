@@ -1,4 +1,4 @@
-The Spec
+Preamble
 ------------
 The specification for Moneysocket is work-in-progress.
 
@@ -10,17 +10,18 @@ The exact shape and size of this deliverable is TBD, however inspiration is take
 
 This is also an effort to bootstrap and sustain an open and transparent process for all stakeholders for the long term. If you have any thoughts, opinions, questions, please drop in our [Telegram Group](https://t.me/moneysocket) or file issues or whatever you feel comfortable with.
 
-Brain Dumps
-------------
-
-* [Shortcomings](shortcomings.md) - known shortcomings of the pre-specification library implementations.
-
 
 Software Model
 ------------
 
+Some conceptual foundation of Moneysocket when it comes to intent and language-independent software architecture.
+
+
+* [Consumers and Providers](software-model/consumers-providers.md)
+* [Accounts](software-model/accounts.md)
+* [Composibility](software-model/composibility.md)
+* [Stack/layer/nexus model](software-model/stack-layer-nexus.md)
 * beacon/relay behavior
-* stack/layer/nexus model
 * transport layers (outgoing websocket, incoming websocket)
 * Code API description
 
@@ -32,15 +33,17 @@ This borrows structure from [Basis of Lightning Technology](https://github.com/l
 
 These articles will capture individual aspects of the techonology in implementable detail.
 
-* [BOM #0](00-introduction.md) - introduction
-* [BOM #1](02-encoding.md) - encoding format primitives (kinda like bolt1 & bolt 4)
-* [BOM #2](02-beacons.md) - beacon encoding format (kinda like bolt11)
+* [BOM #0](00-introduction.md) - Introduction
+* [BOM #1](01-encoding.md) - Encoding format primitives (kinda like bolt1 & bolt 4)
+* [BOM #2](02-beacons.md) - Beacon encoding format (kinda like bolt11)
 * [BOM #3](03-provider-info.md) - Provider Info data & Wad data
-* [BOM #4](04-messages.md) -request/notification message encodings
-* Websocket Layer
-* Rendezvous Layer
-* Ephemeral Layer
-* Auth Layer
+* [BOM #4](04-messages.md) - Request/notification message encodings
+* [BOM #5](05-transport.md) - Transport layer and nexus behavior
+* [BOM #6](06-rendezvous.md) - Rendezvous layer and nexus behavior
+* [BOM #7](07-ephemeral.md) - Ephemeral Encryption Layer
+* [BOM #8](08-identity.md) - Cryptographic Identity Layer
+* [BOM #9](09-consumer.md) - Consumer handshake layer
+* [BOM #10](10-provider.md) - Proivder handshake layer
 * Consumer Layer
 * Provider Layer
 * Consumer API Layer
@@ -52,9 +55,15 @@ Moneysocket Improvement Proposals (MIPs)
 
 This is a space for BIP-like feature and extension proposals to be proposed, discussed, refined and implemented in standardized ways without necessarily getting includsion in the Basis of Moneysocket documentation.
 
-* [MIP #0001](mip-0001.md) - Avatar Image for Public Key
+* [MIP #0001](mips/mip-0001-avatar-image.md) - Avatar Image for Public Key
 * TBD
 * TBD
+
+Appendices
+------------
+
+* [Shortcomings](appendix/shortcomings.md) - Known shortcomings of the pre-specification library implementations.
+* [Embedded Relay](appendix/embedded-relay.md) - Suggestion on how to implement a listening Moneysocket servers
 
 
 Project Links
