@@ -62,16 +62,20 @@ Also optionally, specifies the non-BTC asset that is the primary, user-understoo
 
 ### Exchange rate
 
-The `msat` value and `units`
+The `msat` value and `units` in the `non_btc` objects imply an exchange rate between these assets which can be mathematically derived. It is not redundantly specified in the object, but this value is typically important for calculations involving this object.
 
 ### Examples
 
-Bitcoin-denominated wad:
+#### BTC
 
+Bitcoin-denominated wad:
 ```
 { 'msat': 12350,
   'non_btc': null}
 ```
+Suggested end-user display: `₿ 12.350 Sat`
+
+#### USD
 
 USD-denominated wad:
 ```
@@ -86,6 +90,10 @@ USD-denominated wad:
 }
 ```
 
+Suggested end-user display: `$ 123.46 USD`
+
+#### Other
+
 Cucumber-denominated wad:
 ```
 { 'msat': 222333444,
@@ -93,11 +101,12 @@ Cucumber-denominated wad:
               'name':         "Cucumber vegetables",
               'code':         "CUCUMBER",
               'symbol':       "🥒",
-              'fmt_decimals': "2",
+              'fmt_decimals': "1",
              }
 }
 ```
 
+Suggested end-user display: `🥒 55.6 CUCUMBER`
 
 
 
