@@ -1,4 +1,4 @@
-The Spec
+Preamble
 ------------
 The specification for Moneysocket is work-in-progress.
 
@@ -13,6 +13,9 @@ This is also an effort to bootstrap and sustain an open and transparent process 
 
 Software Model
 ------------
+
+Some conceptual foundation of Moneysocket when it comes to intent and language-independent software architecture.
+
 
 * [Consumers and Providers](software-model/consumers-providers.md)
 * [Accounts](software-model/accounts.md)
@@ -35,10 +38,12 @@ These articles will capture individual aspects of the techonology in implementab
 * [BOM #2](02-beacons.md) - Beacon encoding format (kinda like bolt11)
 * [BOM #3](03-provider-info.md) - Provider Info data & Wad data
 * [BOM #4](04-messages.md) - Request/notification message encodings
-* Websocket Layer
-* Rendezvous Layer
-* Ephemeral Layer
-* Auth Layer
+* [BOM #5](05-transport.md) - Transport layer and nexus behavior
+* [BOM #6](06-rendezvous.md) - Rendezvous layer and nexus behavior
+* [BOM #7](07-ephemeral.md) - Ephemeral Encryption Layer
+* [BOM #8](08-identity.md) - Cryptographic Identity Layer
+* [BOM #9](09-consumer.md) - Consumer handshake layer
+* [BOM #10](10-provider.md) - Proivder handshake layer
 * Consumer Layer
 * Provider Layer
 * Consumer API Layer
