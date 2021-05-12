@@ -9,6 +9,7 @@ A `Matchmaker` will perform the duty of pairing two `Single` connections into a 
 
 A `Single` will connect to a `Matchmaker` and allow the `Matchmaker` to complete the rendezvous to another `Single` that provides the same `Rendezvous ID` value.
 
+
 ## Values
 
 ### Shared Seed
@@ -59,22 +60,117 @@ The Language Object:
 - if `role` is set to `MATCHMAKER`
     - MUST have a name/value pair `tiebreaker` with a value of String type
         - MUST be randomly-generated or specifically-chosen according to desired Tiebreaking behavior
+            - if automatic tiebreaking desired:
+                - MUST set to hex-formatted random 64-bit value
+            - if self-prioritize tiebreaking desired:
+                - MUST set to `"ffffffffffffffff"`
+            - if self-deprioritize tiebreaking desired:
+                - MUST set to `"0000000000000000"`
     - MUST have a name/value pair `rendezvous_id` with a value of String type.
-        - MUST be set to a hex-formatted string of 256-bit `rendezvous_id` value
+        - if the application is capable of falling back to `SINGLE` role in the event of a tiebreaker:
+            - MUST be set to a hex-formatted string of 256-bit `rendezvous_id` value
+        - if the application is not capable of falling back to `SINGLE` role in the event of a tiebreaker:
+            - MUST be set to `null`
 
 
 ### NOTIFY\_RENDEZVOUS
+
+The TLV data
+- MUST set `message_type` value to `0x01`
+- MUST set `message_subtype` value to `0x02`
+
+The Language Object:
+
+- MUST set `message_type` String-typed value to `NOTIFY`
+- MUST set `message_subtype` String-typed value to `RENDEZVOUS`
+- MUST set 'request_reference_uuid` String-typed value to the `request_uuid` of the corresponding `REQUEST_RENDEZVOUS` request.
+- MUST have a name/value pair `rendezvous_id` with a value of String type.
+    - MUST be set to a hex-formatted string of 256-bit `rendezvous_id` value
+    - MUST be the value of the `rendezvous_id` in the corresponding `REQUEST_RENDEZVOUS` request.
+
+
 ### NOTIFY\_RENDEZVOUS\_NOT\_READY
+
+The TLV data
+- MUST set `message_type` value to `0x01`
+- MUST set `message_subtype` value to `0x03`
+
+The Language Object:
+
+- MUST set `message_type` String-typed value to `NOTIFY`
+- MUST set `message_subtype` String-typed value to `RENDEZVOUS_NOT_READY`
+- MUST set 'request_reference_uuid` String-typed value to the `request_uuid` of the corresponding `REQUEST_RENDEZVOUS` request.
+- MUST have a name/value pair `rendezvous_id` with a value of String type.
+    - MUST be set to a hex-formatted string of 256-bit `rendezvous_id` value
+    - MUST be the value of the `rendezvous_id` in the corresponding `REQUEST_RENDEZVOUS` request.
+
 ### NOTIFY\_RENDEZVOUS\_END
+
+The TLV data
+- MUST set `message_type` value to `0x01`
+- MUST set `message_subtype` value to `0x04`
+
+The Language Object:
+
+- MUST set `message_type` String-typed value to `NOTIFY`
+- MUST set `message_subtype` String-typed value to `RENDEZVOUS_END`
+- MUST set 'request_reference_uuid` String-typed value to `null`
+- MUST have a name/value pair `rendezvous_id` with a value of String type.
+    - MUST be set to a hex-formatted string of 256-bit `rendezvous_id` value
+    - MUST be the value of the `rendezvous_id` in the corresponding `REQUEST_RENDEZVOUS` request.
 
 ## Behavior
 
 - Upon establishing a connection, whether outgoing or incoming
     - MUST send a REQUEST\_RENDEZVOUS message.
     - MUST set `role` to be `MATCHMAKER` or `SINGLE`
+    - if `SINGLE` role:
+        - MUST set a `rendezvous_id`
+    - if `MATCHMAKER` role:
+        - MUST set a `tiebreaker` value
+        - MAY set a `rendezvous_id` value
 
+- Upon receiving a `REQUEST_RENDEZVOUS` message.
+    - if local role is `SINGLE` and the message indicates the remote role is `MATCHMAKER`
+        - MUST ignore any `REQUEST_RENDEZVOUS` messages from other end
+        - MUST wait for remote role to send `NOTIFY_RENDEZVOUS` `NOTIFY_RENDEZVOUS_NOT_READY`
 
+    - if local role is `MATCHMAKER` and the message indicates the remote role is `SINGLE`
+        - if `rendezvous_id` matches an previous `SINGLE` connection waiting for rendezvous
+            - MUST send a `NOTIFY_RENDEZVOUS` notification
+            - MUST yield a nexus for the two single connection to the above layer
+        - if `rendezvous_id` does not match a previous `SINGLE` connection waiting for rendezvous
+            - MUST send a `NOTIFY_RENDEZVOUS_NOT_READY` notification
+            - MUST NOT yield a nexus to the above layer
 
+    - if local role is `MATCHMAKER` and the message indicates the remote role is `MATCHMAKER`
+        - TODO figure out implementation and test and clarify
+        - If the `tiebreaker` evaluates local application as the winner
+
+        - if the message has a `rendezvous_id` set
+
+        - if the message does not have a `rendezvous_id` set
+            - if the local application does not have a `rendezvous_id` for the connection
+                - MUST send an `ERROR_NOTIFICATION`
+                - MUST disconnect within 1 second
+        - if the message does not have a `rendezvous_id` set
+
+- Upon receiving a `NOTIFY_RENDEZVOUS` message.
+    - MUST yield a nexus to above layer
+
+- Upon receiving a `NOTIFY_RENDEZVOUS_NOT_READY` message.
+    - MAY keep the connection open to wait for `NOTIFY_RENDEZVOUS`
+
+- Upon receiving a `NOTIFY_RENDEZVOUS_END` message over a connection
+    - If role is `SINGLE`
+        - MUST disconnect connection
+
+    - If role is `MATCHMAKER`
+        - if two connections have been connected in rendezvous
+            - MUST echo `NOTIFY_RENDEZVOUS_END` to the other connection
+        - MUST disconnect all connections associated with `rendezvous_id`
+
+    - MAY attempt a reconnect with same `rendezvous_id` after disconnect is completed
 
 ## Appendix A - Shared Seed Derivation Test Vectors
 
