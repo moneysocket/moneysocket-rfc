@@ -10,9 +10,9 @@ The role is a property of the connection and not the application as a whole. How
 
 An application can have multiple connections, each of which can be either role. If it makes sense for a particular composed system, an application may have two connections open to another application with opposite role arrangements within each connection.
 
-## Bidirectional role
+## Automatic role
 
-A connection may choose to be late-binding into one of these two roles. In which case, it will be referred to as having a "Bidirectional" role, however it will assume either a Consumer or a Provider role upon completing a connection.
+A connection may choose to be late-binding into one of these two roles. In which case, it will be referred to as having an "Automatic" role, however it will assume either a Consumer or a Provider role upon completing a connection, provided it can find the right role to partner with.
 
 The application's connection will choose a role depending on the role of the other side of the connection as discovered via the handshake.
 

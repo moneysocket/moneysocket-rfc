@@ -42,8 +42,7 @@ These articles will capture individual aspects of the techonology in implementab
 * [BOM #6](06-rendezvous.md) - Rendezvous layer and nexus behavior
 * [BOM #7](07-ephemeral.md) - Ephemeral Encryption Layer
 * [BOM #8](08-identity.md) - Cryptographic Identity Layer
-* [BOM #9](09-consumer.md) - Consumer handshake layer
-* [BOM #10](10-provider.md) - Proivder handshake layer
+* [BOM #9](09-roles.md) - Consumer/Provider/Automatic role handshake layer
 * Consumer Layer
 * Provider Layer
 * Consumer API Layer
