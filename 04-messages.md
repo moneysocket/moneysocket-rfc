@@ -70,6 +70,8 @@ Indicates the message type, either a request or notification and specifically wh
 
 ##### Request Message Enumeration Values
 
+- TODO settle enum values
+
 - `PAY`: `subtype` = `0x000000`
 - `RENDEZVOUS`: `subtype` = `0x000001`
 - `INVOICE`: `subtype` = `0x000002`
@@ -80,6 +82,8 @@ Indicates the message type, either a request or notification and specifically wh
 - All other values between zero and `0x0000ffff` are reserved
 
 ##### Notification Message Enumeration Values
+
+- TODO settle enum value table
 
 - `ERROR`: `subtype` = `0x000000`
 - `INVOICE`: `subtype` = `0x000001`
