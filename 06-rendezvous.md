@@ -2,7 +2,7 @@
 
 The Rendezvous layer performs an application's part in establishing a communications channel with another application.
 
-## Roles
+## Matchmaker and Single roles
 An instance of the Rendezvous layer is assigned a role of either a `Matchmaker` or a `Single`.
 
 A `Matchmaker` will perform the duty of pairing two `Single` connections into a rendezvous relationship. Typically, a relay or other app that is listening incoming connections will take the `Matchmaker` role.
@@ -42,6 +42,8 @@ Messages are encoded as defined in [04-messages.md](BOM #4).
 
 ### REQUEST\_RENDEZVOUS
 
+- This message is exempt from transport layer encryption
+
 The TLV data
 - MUST set `message_type` value to `0x00`
 - MUST set `message_subtype` value to `0x01`
@@ -75,6 +77,8 @@ The Language Object:
 
 ### NOTIFY\_RENDEZVOUS
 
+- This message is exempt from transport layer encryption (TODO - should it be encrypted?)
+
 The TLV data
 - MUST set `message_type` value to `0x01`
 - MUST set `message_subtype` value to `0x02`
@@ -91,6 +95,8 @@ The Language Object:
 
 ### NOTIFY\_RENDEZVOUS\_NOT\_READY
 
+- This message is exempt from transport layer encryption
+
 The TLV data
 - MUST set `message_type` value to `0x01`
 - MUST set `message_subtype` value to `0x03`
@@ -105,6 +111,8 @@ The Language Object:
     - MUST be the value of the `rendezvous_id` in the corresponding `REQUEST_RENDEZVOUS` request.
 
 ### NOTIFY\_RENDEZVOUS\_END
+
+- This message is exempt from transport layer encryption (TODO - should it be encrypted?)
 
 The TLV data
 - MUST set `message_type` value to `0x01`
@@ -121,8 +129,14 @@ The Language Object:
 
 ## Behavior
 
-- Upon establishing a connection, whether outgoing or incoming
-    - MUST send a REQUEST\_RENDEZVOUS message.
+### Consumer/Provider
+
+Typically consumers send `REQUEST` messages, and `Providers` reply with `NOTIFICATION`, however at this level of the stack the applications have yet to differentiate into Consumer/Provider roles and either type of message is permitted.
+
+### Handshake
+
+- Upon receiving a nexus announcement from layer below:
+    - MUST send a `REQUEST_RENDEZVOUS` message.
     - MUST set `role` to be `MATCHMAKER` or `SINGLE`
     - if `SINGLE` role:
         - MUST set a `rendezvous_id`
@@ -138,10 +152,10 @@ The Language Object:
     - if local role is `MATCHMAKER` and the message indicates the remote role is `SINGLE`
         - if `rendezvous_id` matches an previous `SINGLE` connection waiting for rendezvous
             - MUST send a `NOTIFY_RENDEZVOUS` notification
-            - MUST yield a nexus for the two single connection to the above layer
+            - MUST announce a nexus for the two single connection to the above layer
         - if `rendezvous_id` does not match a previous `SINGLE` connection waiting for rendezvous
             - MUST send a `NOTIFY_RENDEZVOUS_NOT_READY` notification
-            - MUST NOT yield a nexus to the above layer
+            - MUST NOT announce a nexus to the above layer
 
     - if local role is `MATCHMAKER` and the message indicates the remote role is `MATCHMAKER`
         - TODO figure out implementation and test and clarify
@@ -156,7 +170,7 @@ The Language Object:
         - if the message does not have a `rendezvous_id` set
 
 - Upon receiving a `NOTIFY_RENDEZVOUS` message.
-    - MUST yield a nexus to above layer
+    - MUST announce a nexus to above layer
 
 - Upon receiving a `NOTIFY_RENDEZVOUS_NOT_READY` message.
     - MAY keep the connection open to wait for `NOTIFY_RENDEZVOUS`
