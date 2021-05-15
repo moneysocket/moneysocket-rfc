@@ -43,6 +43,8 @@ These articles will capture individual aspects of the techonology in implementab
 * [BOM #7](07-ephemeral.md) - Ephemeral Encryption Layer
 * [BOM #8](08-identity.md) - Cryptographic Identity Layer
 * [BOM #9](09-roles.md) - Consumer/Provider/Automatic role handshake layer
+* [BOM #10](10-api.md) - API layer
+
 * Consumer Layer
 * Provider Layer
 * Consumer API Layer

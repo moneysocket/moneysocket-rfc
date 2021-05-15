@@ -2,7 +2,7 @@
 
 The Rendezvous layer performs an application's part in establishing a communications channel with another application.
 
-## Roles
+## Matchmaker and Single roles
 An instance of the Rendezvous layer is assigned a role of either a `Matchmaker` or a `Single`.
 
 A `Matchmaker` will perform the duty of pairing two `Single` connections into a rendezvous relationship. Typically, a relay or other app that is listening incoming connections will take the `Matchmaker` role.
@@ -135,8 +135,8 @@ Typically consumers send `REQUEST` messages, and `Providers` reply with `NOTIFIC
 
 ### Handshake
 
-- Upon establishing a connection, whether outgoing or incoming
-    - MUST send a REQUEST\_RENDEZVOUS message.
+- Upon receiving a nexus announcement from layer below:
+    - MUST send a `REQUEST_RENDEZVOUS` message.
     - MUST set `role` to be `MATCHMAKER` or `SINGLE`
     - if `SINGLE` role:
         - MUST set a `rendezvous_id`
