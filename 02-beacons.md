@@ -5,7 +5,7 @@ A Moneysocket beacon specifies the means by which two applications, a Provider a
 
 ## Generator
 
-The application that generates the beacon is referred to as the generator. The generator application can be of either Consumer, Provider or Bidirectional role. By generating the beacon, the application is seeking a compatible counterpart application to rendezvous.
+The application that generates the beacon is referred to as the generator. The generator application can be of either Consumer, Provider or Automatic role. By generating the beacon, the application is seeking a compatible counterpart application to rendezvous.
 
 ## Bech32 encoding
 
@@ -13,20 +13,31 @@ Beacon strings are encoded in Bech32 format as specified by [BIP #0174](https://
 
 ### Human Readable Prefix
 
-- MUST start prefix with `Moneysocket`
-- MAY specify additional user hints in the HRP. up to the permitted 83 US-ASCII characters. E.g `Moneysocket-Paste-Wallet`, `Moneysocket-Paste-Application`.
+- MUST start prefix with `moneysocket`
+- MAY specify additional user hints in the HRP. up to the permitted 83 US-ASCII characters. E.g `moneysocket-paste-wallet`, `moneysocket-paste-application`.
+- MUST use lowercase alphabetic characters.
 
 
 ### Data Part
 
-Data part is encoded as a string of bytes interpreted as a sequence of TLVs
+Data part is encoded as a TLV which contains a tlv stream:
 
-- MUST include a Generator Version TLV
-- SHOULD include a Role Hint TLV
-- MUST include a Shared Seed TLV
-- MUST include a Location List TLV
-- MAY include additional TLVs to pass non-standard data
-    - SHOULD pick custom record `type` value following rules in [BOLT #01](https://github.com/lightningnetwork/lightning-rfc/blob/master/01-messaging.md#type-length-value-format).
+The data part:
+
+- MUST have only one TLV, which is the tlv\_stream (tlv wrapper specifies length)
+
+The tlv stream:
+    - MUST include a Generator Version TLV
+    - SHOULD include a Role Hint TLV
+    - MUST include a Shared Seed TLV
+    - MUST include a Location List TLV
+    - MAY include additional TLVs to pass non-standard data
+        - SHOULD pick custom record `type` value following rules in [BOLT #01](https://github.com/lightningnetwork/lightning-rfc/blob/master/01-messaging.md#type-length-value-format).
+
+1. type: 0 (`beacon`)
+2. data:
+    * [`tlv_stream`: `beacon_tlvs`]
+
 
 #### Generator Version TLV
 
@@ -48,7 +59,7 @@ Specifies a byte-sized enumeration value set by the generating application to in
 
 - `PROVIDER_GENERATOR_SEEKING_CONSUMER`: `hint` = `0x00`
 - `CONSUMER_GENERATOR_SEEKING_PROVIDER`: `hint` = `0x01`
-- `BIDIRECTIONAL_GENERATOR`: `hint` = `0x02`
+- `AUTOMATIC_GENERATOR`: `hint` = `0x02`
 - All other values are reserved.
 
 1. type: 1 (`role_hint`)
@@ -89,6 +100,7 @@ Specifies a location for a WebSocket connection rendezvous.
 
 - MAY include a Generator Preference TLV to rank the Generator's preference for this location compared to others in the Location List TLV. If it is not included, it will imply a preference ranking of 255.
 - MUST include a Hostname TLV to specify the DNS hostname of the WebSocket rendezvous location.
+    - MUST be a valid hostname
 - MAY include a TLS TLV to specify whether the connection should use TLS. If it is not included, it will imply a setting of `true` to indicate TLS is to be used.
 - MAY include a Port TLV to specify a custom port for the WebSocket connection. If it is not included, it will imply a value of `443` for TLS connections and `80` for non-TLS connections.
 - MAY include a Path TLV to specify a custom path for the WebSocket connection URL. If it is not included, it will imply a connection to the root (`/`) URL path.
@@ -108,7 +120,7 @@ An optional value chosen by the generator that indicates it's relative preferenc
 
 ###### Hostname TLV
 
-A DNS hostname for where the WebSocket connection request are to be seent.
+A DNS hostname for where the WebSocket connection request are to be sent.
 
 1. type: 1 (`hostname`)
 2. data:
@@ -160,9 +172,9 @@ A pathname for the WebSocket url connection.
 
 ### QR Code Decoding
 
-- MUST reject all QR-code-decoded strings that do not start with `Moneysocket` or `MONEYSOCKET`
-- MUST convert QR-code-decoded strings with the prefix `MONEYSOCKET` to `Moneysocket`
-- SHOULD covert all alphabetic characters, with the exception of the first `M` of the `Moneysocket` prefix of the HRP, to lowercase.
+- MUST reject all QR-code-decoded strings that do not start with `moneysocket` or `MONEYSOCKET` (or any mixed case).
+- MUST convert QR-code-decoded strings with the prefix `MONEYSOCKET` to `moneysocket`
+- SHOULD covert all alphabetic characters to lowercase.
 - SHOULD evaluate the bech32 checksum of the data part immediately after decoding from QR code to ensure full integrity.
 
 
