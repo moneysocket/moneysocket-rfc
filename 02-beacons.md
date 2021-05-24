@@ -181,4 +181,5 @@ A pathname for the WebSocket url connection.
 
 ## Appendix A - Test Vectors
 
-TODO
+* [Beacon encoding and decoding](test-vectors/01-beacon-encode-decode.json)
+* [Beacon decoding errors](test-vectors/01-beacon-decode-error.json)
