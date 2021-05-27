@@ -33,32 +33,44 @@ Also optionally, specifies the non-BTC asset that is the primary, user-understoo
                 - MUST match negative/positive/zero classification of `msat` field of Wad object.
                 - MAY be floating-point precision values
             - MUST specify a name/value pair `name` with String value that provides a descriptive human-undestandable name for the asset. (eg. `"United States dollar"`, or `"Bushel of Corn"`)
+                - MUST NOT be set to `null`
                 - MUST NOT be an empty string.
                 - MAY be in a non-English language if appropriate to the context of end users.
                 - SHOULD not be excessively long
                 - SHOULD be written to be helpful to end-users to disambiguate denominations from one-another.
                 - SHOULD NOT be ambiguous or deliberately confusing (eg. "Bitcoin")
                 - SHOULD be in the sigular tense (eg. `dollar` not `dollars`)
+            - MAY include a name/value pair `rate_timestamp` with a value of Number type
+                - MUST be set to a UNIX timestamp
+                - MUST indicate time the exchange rate between BTC and the non-BTC asset was calculated
+                - MUST be a value no later than the generating computer OS's system time.
+                - MAY be floating point or integer specified
             - if the denomination has been assigned an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code:
                 - MUST specify a name/value pair `code` with a value of String type
                 - MUST specify a name/value pair `iso_num` with a value of Number type
-                    - MUST be set to the number assigne by ISO 4217
+                    - MUST be set to the number assigned by ISO 4217
             - if the denomiation has NOT been assigned an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code:
                 - if the denomination has a commonly-understood abbreviated code value:
                     - MUST be set to a commonly-understood abbreviated code value for the denomination (eg. `"LTC"`, `"ETH"`, `"DOGE"`, `"RAREPEPE"`)
                 - if the denomination has no commonly-understood abreviated code value:
+                    - MUST set value to a string
                     - MAY set value to be an empty string: `""`
                     - SHOULD be set to a reasonable approximation of a code descriptive of the asset.
-                        - MUST be minimum three and maximum twelve capital English letters. (eg. `"MARBLES"`, `"EGGPLANTS"`)
+                        - MUST, when set to a non-empty string, be minimum three and maximum twelve capital English letters. (eg. `"MARBLES"`, `"EGGPLANTS"`)
                     - SHOULD NOT be the same as commonly understood code values (eg. `"BTC"`, `"USD"`)
 
             - if the denomination has a commonly-understood Unicode currency symbol or sequence of Unicode character (eg. `$` for United States dollar, `€` for Euro, `ع.د` for Iraqi dinar, etc.)
                 - MUST specify a name/value pair `symbol` with a value of String type
                 - MUST be set to the symbol character or characters with no leading or trailing whitespace.
+            - if the denomination has no commonly-understood currnecy symbol:
+                - MUST set to at least an empty string `""`
+                - MAY specify a reasonable choice to use in place of a currency symbol (eg. an emoji)
+                - MUST NOT use more than a sequence of 6 Unicode characters
 
             - if the denomination has a commonly-understood expectations of precision when displayed for reading (eg. 2 for United states dollar, 0 for Japanese yen, etc.)
                 - SHOULD specify a name/value pair `fmt_decimal` with a value of Number type:
                     - MUST be set to a positive or zero integer value
+                    - MUST NOT be larger than 12
 
 ### Exchange rate
 
@@ -73,19 +85,20 @@ Bitcoin-denominated wad:
 { 'msat': 12350,
   'non_btc': null}
 ```
-Suggested end-user display: `₿ 12.350 Sat`
+Suggested end-user display: `₿ 12.350 sat`
 
 #### USD
 
 USD-denominated wad:
 ```
 { 'msat': 1234567890,
-  'non_btc': {'units':        123.456,
-              'name':         "United States dollar",
-              'code':         "USD",
-              'iso_num':      840,
-              'symbol':       "$",
-              'fmt_decimals': "2",
+  'non_btc': {'units':          123.456,
+              'name':           "United States dollar",
+              'rate_timestamp': 1622048707,
+              'code':           "USD",
+              'iso_num':        840,
+              'symbol':         "$",
+              'fmt_decimals':   2,
              }
 }
 ```
@@ -101,7 +114,7 @@ Cucumber-denominated wad:
               'name':         "Cucumber vegetables",
               'code':         "CUCUMBER",
               'symbol':       "🥒",
-              'fmt_decimals': "1",
+              'fmt_decimals': 1,
              }
 }
 ```
@@ -133,7 +146,7 @@ An language object passed over the socket connection inside a message language o
 - MUST include a name/value pair `public_keys` with value of Object type
     - MAY be an empty Object
     - MAY include name/value pairs with hex-formatted public key strings with values of Object type
-        - MUST have a name/value pair `functions` with a value of Array type
+        - MUST have a name/value pair `features` with a value of Array type
             - TODO - do this better once the crypto stuff is figured out
             - MAY be an empty Array
             - MAY include a String with a indentifier for each public key function
@@ -170,10 +183,10 @@ An language object passed over the socket connection inside a message language o
    "payee":        false,
    "public_keys":  {
         "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03":
-            {"functions": ["SCHNORR_SIGN_ARMOR",
-                           "SCHNORR_SIGN_BINARY",
-                           "ENCRYPT_BIN",
-                           "DECRYPT_BIN"],
+            {"features": ["SCHNORR_SIGN_ARMOR",
+                          "SCHNORR_SIGN_BINARY",
+                          "ENCRYPT_BIN",
+                          "DECRYPT_BIN"],
              "friendly_name": "UnicornPrincess",
             }
     }
@@ -182,4 +195,9 @@ An language object passed over the socket connection inside a message language o
 }
 ```
 
+## Appendix A - Wad Test Vectors
 
+* [Wad Encode](test-vectors/02-wad_encode.json)
+* [Wad Decode Errors](test-vectors/02-wad-decode-error.json)
+
+## Appendix B - Provider Info Test Vectors
