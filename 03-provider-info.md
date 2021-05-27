@@ -197,7 +197,7 @@ An language object passed over the socket connection inside a message language o
 
 ## Appendix A - Wad Test Vectors
 
-* [Wad Encode](test-vectors/02-wad_encode.json)
-* [Wad Decode Errors](test-vectors/02-wad-decode-error.json)
+* [Wad Encode](test-vectors/03-wad_encode.json)
+* [Wad Decode Errors](test-vectors/03-wad-decode-error.json)
 
 ## Appendix B - Provider Info Test Vectors
