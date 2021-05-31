@@ -146,17 +146,26 @@ An language object passed over the socket connection inside a message language o
 - MUST include a name/value pair `public_keys` with value of Object type
     - MAY be an empty Object
     - MAY include name/value pairs with hex-formatted public key strings with values of Object type
+        - MUST have a name/value pair `curve` with a value of String type
+            - MUST have a non-empty string as value
+            - MUST specify the elliptic curve used to derive the public key from the private key counterpart
+            - MUST NOT be an empty string
         - MUST have a name/value pair `features` with a value of Array type
-            - TODO - do this better once the crypto stuff is figured out
             - MAY be an empty Array
             - MAY include a String with a indentifier for each public key function
+                - MAY NOT be an empty string
                 - MAY include `SCHNORR_SIGN_ARMOR` to indicate the capability to provide PGP-style signature of a provided message for the public key
                 - MAY include `SCHNORR_SIGN_BINARY` to indicate the capability to provide a binary signature for a binary message for the public key
                 - MAY include `ENCRYPT_BIN` to... TODO
                 - MAY include `DECRYPT_BIN` to... TODO
-    - MAY include a name/value pair `friendly_name` with a value of String type
-        - SHOULD set to a string of a name that the holder of the private key would prefer their public key to be referred to.
-        - SHOULD NOT contain whitespace
+                - SHOULD NOT be an excessive amount of data that taxes the computational resources of applications and message parsers.
+        - MAY include a name/value pair `friendly_name` with a value of String type
+            - MUST NOT be an empty string
+            - MUST NOT be longer than 64 characters
+            - SHOULD set to a string of a name that the holder of the private key would prefer their public key to be referred to.
+            - SHOULD NOT contain whitespace
+        - MAY have additional name/value pairs included in the Object value for a public key.
+            - SHOULD NOT be an excessive amount of data that taxes the computational resources of applications and message parsers.
 
 - MUST have a name/value pair `features` with a value of Array type
     - MAY be an empty Array
@@ -172,6 +181,9 @@ An language object passed over the socket connection inside a message language o
         - MUST set `name` corresponding to the String value in the `features` array.
         - SHOULD NOT be an excessive amount of data that taxes the computational resources of applications and message parsers.
 
+- MAY have additional name/value pairs included in the JSON object.
+    - SHOULD use `features` and `feature_data` to pass non-standard signals and data instead of additional name/value pairs whenever possible
+    - SHOULD NOT be an excessive amount of data that taxes the computational resources of applications and message parsers.
 
 ### Examples
 ```
@@ -183,7 +195,8 @@ An language object passed over the socket connection inside a message language o
    "payee":        false,
    "public_keys":  {
         "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03":
-            {"features": ["SCHNORR_SIGN_ARMOR",
+            {"curve":    "secp256k1",
+             "features": ["SCHNORR_SIGN_ARMOR",
                           "SCHNORR_SIGN_BINARY",
                           "ENCRYPT_BIN",
                           "DECRYPT_BIN"],
@@ -197,7 +210,7 @@ An language object passed over the socket connection inside a message language o
 
 ## Appendix A - Wad Test Vectors
 
-* [Wad Encode](test-vectors/02-wad_encode.json)
-* [Wad Decode Errors](test-vectors/02-wad-decode-error.json)
+* [Wad Encode](test-vectors/03-wad_encode.json)
+* [Wad Decode Errors](test-vectors/03-wad-decode-error.json)
 
 ## Appendix B - Provider Info Test Vectors
