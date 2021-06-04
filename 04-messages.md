@@ -1,6 +1,6 @@
 # BOM #4: Message Encoding
 
-Messages for the wire are encoded in binary as a TLV stream, however the major part of the content is encoded as a JSON object TLV.
+Messages for the wire are encoded in binary as a TLV stream, however the major part of the content contained inside is encoded as a JSON object TLV.
 
 This design is to support experimentation and extensibility by allowing additional TLVs and/or fields to messages that can be ignored by implementations that don't understand the extension.
 
@@ -41,7 +41,7 @@ Specifies the version of Sender application.
 - SHOULD set `minor` version of the Sender application software release, otherwise set 0.
 - SHOULD set `patch` version of the Sender application software release, otherwise set 0.
 
-1. type: 0 (`version`)
+1. type: 0 (`sender_version`)
 2. data:
     * [`u8`: `major`]
     * [`u8`: `minor`]
@@ -63,7 +63,7 @@ Indicates the message type, either a request or notification and specifically wh
         - SHOULD pick random `subtype` values to avoid collisions with other custom subtype values
 
 
-1. type: 1 (`message_type`)
+1. type: 1 (`type`)
 2. data:
     * [`u8`: `type`]
     * [`bigsize`: `subtype`]
@@ -106,7 +106,6 @@ Indicates the message type, either a request or notification and specifically wh
 
 1. type: 2 (`json_object`)
 2. data:
-* [`u8`: `type`]
 * [`len*byte`: `encoded_json`]
 
 
@@ -116,18 +115,28 @@ Language object discussed here as it is to be serialized into JSON. The specific
 
 - MUST include a name/value pair `"timestamp"` with a value of Number type.
     - MUST set `"timestamp"` value to the UNIX timestamp recorded at the time the message has been created by the sender.
+    - MAY be a floating point or integer
+    - MUST NOT be a negative number
+    - MUST NOT be a timestamp in the future
 
 - MUST include a name/value pair `"version"` with a value of Object type
     - MUST have a length of 3, with the keys being `"major"` `"minor"` and `"patch"`.
     - MUST have a Number type for each of the 3 values
-    - MUST set the '"major"` value to the `major` version of the Moneysocket protocol of the sender application
-    - SHOULD set the '"minor"' value to the `minor` version of the sender application software release, otherwise set 0.
+    - MUST not be larger than 255
+    - MUST not less than 0
+    - MUST set the `"major"` value to the `major` version of the Moneysocket protocol of the sender application
+    - SHOULD set the `"minor"` value to the `minor` version of the sender application software release, otherwise set 0.
     - SHOULD set the `"patch"` to the `patch` version of the sender application software release, otherwise set 0.
 
-    - MUST have a name/value pair `message_type` with a value of String type
-        - MUST be value of either `"REQUEST"` or `"NOTIFICATION"`
-    - MUST have a name/value pair `message_subtype` with a value of String type
+- MUST have a name/value pair `type` with a value of String type
+    - MUST be value of either `"REQUEST"` or `"NOTIFICATION"`
+
+- MUST have a name/value pair `subtype` with a value of String type
+    - MUST NOT be an empty string
+    - if message is a defined message type in this RFC:
         - MUST be value of the string representation of the enum value given in the Message Type TLV.
+    - if message is not a defined message type in this RFC:
+        - SHOULD be composed of capitalized alphanumeric characters `[A-Z]` and underscores `_`
 
 - MUST have a name/value pair `features` with a value of Array type
     - MAY be an empty Array
@@ -143,16 +152,19 @@ Language object discussed here as it is to be serialized into JSON. The specific
         - MUST set `name` corresponding to the String value in the `features` array.
         - SHOULD NOT be an excessive amount of data that taxes the computational resources of applications and message parsers.
 
-- If the `message_type` is `REQUEST`:
+-MUST have a name/value pair `subtype_data` with a value of Object type
+
+- If the `type` is `REQUEST`:
     - MUST have a name/value pair `request_uuid` with a value of String type
     - MUST be a string-formatted UUIDv4 that is securely generated for this message.
 
-- If the `message_type` is `NOTIFICATION`:
+- If the `type` is `NOTIFICATION`:
     - MUST have a name/value pair `request_reference_uuid` with a value of String type
     - MAY be set to `null`
     - if this notification is in reference to a specific `REQUEST` message:
         - MUST be set to the `request_uuid` of the request
 
-- MAY have additional name/value pairs in the JSON as defined by the specific message and specific layer of the implementation.
+- MAY have additional name/value pairs in the JSON to express non-standard information
+    - SHOULD NOT be an excessive amount of data that taxes the computational resources of applications and message parsers.
 - MAY have additional non-specification name/value pairs in the JSON
     - MUST use distinct names to not conflict with name/value pairs used by the message subtype.

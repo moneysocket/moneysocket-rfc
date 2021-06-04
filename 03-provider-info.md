@@ -210,7 +210,10 @@ An language object passed over the socket connection inside a message language o
 
 ## Appendix A - Wad Test Vectors
 
-* [Wad Encode](test-vectors/03-wad_encode.json)
+* [Wad Encode](test-vectors/03-wad-encode.json)
 * [Wad Decode Errors](test-vectors/03-wad-decode-error.json)
 
 ## Appendix B - Provider Info Test Vectors
+
+* [Provider Info Encode](test-vectors/03-provider-info-encode.json)
+* [Provider Info Decode Errors](test-vectors/03-provider-info--decode-error.json)
