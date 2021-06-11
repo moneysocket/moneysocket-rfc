@@ -99,15 +99,20 @@ Indicates the message type, either a request or notification and specifically wh
 - All other values between zero and `0x0000ffff` are reserved
 
 
-#### JSON object TLV
+#### language object TLV
 - MUST have appropriate contents in the language object
 - MUST serialize language object into a JSON string
 - MUST encode JSON string into a UTF-8-encoded byte stream
 
-1. type: 2 (`json_object`)
+1. type: 2 (`language_object`)
 2. data:
 * [`len*byte`: `encoded_json`]
 
+
+#### Additional TLVs
+
+- MAY include additional non-standard TLVs in the message tlv\_stream
+    - MUST NOT use TLV type values in conflict with the other standard TLVs
 
 ##### Language Object Message Contents
 
@@ -153,13 +158,15 @@ Language object discussed here as it is to be serialized into JSON. The specific
         - SHOULD NOT be an excessive amount of data that taxes the computational resources of applications and message parsers.
 
 -MUST have a name/value pair `subtype_data` with a value of Object type
+    - MAY include data relevant for the message
+    - MUST include all specified data for rfc-specified message subtypes
 
 - If the `type` is `REQUEST`:
     - MUST have a name/value pair `request_uuid` with a value of String type
     - MUST be a string-formatted UUIDv4 that is securely generated for this message.
 
 - If the `type` is `NOTIFICATION`:
-    - MUST have a name/value pair `request_reference_uuid` with a value of String type
+    - MUST have a name/value pair `request__uuid` with a value of String type
     - MAY be set to `null`
     - if this notification is in reference to a specific `REQUEST` message:
         - MUST be set to the `request_uuid` of the request
